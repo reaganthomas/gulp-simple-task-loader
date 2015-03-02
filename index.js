@@ -9,10 +9,8 @@ var path = require('path');
 var defaultOptions = {
   taskDirectory: 'gulp-tasks',
   plugins: {},
-  config: {
-    filenameDelimiter: '',
-    taskDelimiter: ''
-  }
+  filenameDelimiter: '',
+  taskDelimiter: ''
 };
 
 module.exports = function(options) {
@@ -36,8 +34,8 @@ module.exports = function(options) {
       }
 
       let taskname = filename.slice(0,-3);
-      taskname = taskname.replace(options.config.filenameDelimiter, options.config.taskDelimiter);
-      let taskinfo = require(file)(gulp, options.plugins, options.config);
+      taskname = taskname.replace(options.filenameDelimiter, options.taskDelimiter);
+      let taskinfo = require(file)(gulp, options.plugins, _.omit(options, 'plugins'));
 
       gulp.task.apply(gulp, [taskname].concat(taskinfo));
     });

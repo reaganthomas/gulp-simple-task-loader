@@ -34,7 +34,7 @@ module.exports = function (options) {
 
     var taskname = filename.slice(0, -3);
     taskname = taskname.replace(options.filenameDelimiter, options.taskDelimiter);
-    var taskinfo = require(file)(gulp, options.plugins, _.omit(options, "plugins"));
+    var taskinfo = require(file)(gulp, _.omit(options, "plugins"), options.plugins);
 
     gulp.task.apply(gulp, [taskname].concat(taskinfo));
   });

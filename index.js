@@ -42,6 +42,6 @@ module.exports = function(options) {
       taskname = taskname.split(options.filenameDelimiter).join(options.taskDelimiter);
       let taskinfo = require(file)(gulp, options, options.plugins);
 
-      gulp.task.apply(gulp, [taskname].concat(taskinfo));
+      gulp.task(taskname, taskinfo.deps || [], taskinfo.fn || taskinfo);
     });
 };

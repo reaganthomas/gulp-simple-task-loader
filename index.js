@@ -14,7 +14,7 @@ var defaultOptions = {
 };
 
 module.exports = function(options) {
-  options = _.defaults(_.assign(defaultOptions, options), options);
+  options = _.assign(defaultOptions, options);
 
   if(typeof options.taskDirectory !== String) {
     options.taskDirectory = defaultOptions.taskDirectory;
@@ -22,6 +22,11 @@ module.exports = function(options) {
 
   if(options.taskDirectory[0] !== path.sep && options.taskDirectory.slice(0,2) !== '.' + path.sep) {
     options.taskDirectory = path.join(process.cwd(), options.taskDirectory);
+  }
+
+  let dirStat = fs.statSync(options.taskDirectory);
+  if(!dirStat.isDirectory()) {
+    throw new Error('Error: ' + options.taskDirectory + ' is not a directory');
   }
 
   fs.readdirSync(options.taskDirectory)
@@ -35,7 +40,7 @@ module.exports = function(options) {
 
       let taskname = filename.slice(0,-3);
       taskname = taskname.split(options.filenameDelimiter).join(options.taskDelimiter);
-      let taskinfo = require(file)(gulp, _.omit(options, 'plugins'), options.plugins);
+      let taskinfo = require(file)(gulp, options, options.plugins);
 
       gulp.task.apply(gulp, [taskname].concat(taskinfo));
     });

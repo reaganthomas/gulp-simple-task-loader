@@ -14,7 +14,7 @@ var defaultOptions = {
 };
 
 module.exports = function(options) {
-  options = _.assign(defaultOptions, options);
+  options = _.defaults(_.assign(defaultOptions, options), options);
 
   if(typeof options.taskDirectory !== String) {
     options.taskDirectory = defaultOptions.taskDirectory;

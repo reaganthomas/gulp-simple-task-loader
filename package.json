@@ -1,6 +1,6 @@
 {
   "name": "gulp-simple-task-loader",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "A simple task loader for gulp",
   "keywords": [
     "gulp",
@@ -29,6 +29,7 @@
     "gulp-bump": "^0.2.2",
     "gulp-mocha": "^2.0.0",
     "istanbul": "^0.3.7",
+    "mocha": "^2.2.1",
     "mocha-lcov-reporter": "0.0.2"
   }
 }

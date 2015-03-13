@@ -1,6 +1,14 @@
 Gulp Simple Task Loader
 =======================
 
+[![npm version](https://badge.fury.io/js/gulp-simple-task-loader.svg)](http://badge.fury.io/js/gulp-simple-task-loader)
+[![Coverage Status](https://coveralls.io/repos/reaganthomas/gulp-simple-task-loader/badge.svg)](https://coveralls.io/r/reaganthomas/gulp-simple-task-loader)
+[![Build Status](https://travis-ci.org/reaganthomas/gulp-simple-task-loader.svg)](https://travis-ci.org/reaganthomas/gulp-simple-task-loader)
+
+[![NPM](https://nodei.co/npm/gulp-simple-task-loader.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-simple-task-loader/)
+[![NPM](https://nodei.co/npm-dl/gulp-simple-task-loader.png?months=3&height=3)](https://nodei.co/npm-dl/gulp-simple-task-loader/)
+
+
 Easily modularize gulp tasks and minify your gulpfile. Works well with [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins).
 
 ## Installation
@@ -112,7 +120,9 @@ module.exports = function(gulp, config, plugins) {
 };
 ```
 
-## Complete example using gulp-load-plugins
+## Complete examples
+
+### Using gulp-load-plugins
 
 ```js
 (gulpfile.js)

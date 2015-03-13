@@ -34,14 +34,12 @@ describe('gulp-simple-task-loader', function() {
 				taskDirectory: 'test/test-tasks',
 				plugins: { derp: 'herp' },
 				filenameDelimiter: '-',
-				taskDelimiter: ':'
+				tasknameDelimiter: ':'
 			});
 
 			var config = gulp.tasks['config'].fn();
-			assert.equal(config.taskDirectory.slice(-15), 'test/test-tasks');
-			assert.deepEqual(config.plugins, { derp: 'herp' });
 			assert.equal(config.filenameDelimiter, '-');
-			assert.equal(config.taskDelimiter, ':');
+			assert.equal(config.tasknameDelimiter, ':');
 			done();
 		});
 
@@ -53,6 +51,19 @@ describe('gulp-simple-task-loader', function() {
 
 			var config = gulp.tasks['config'].fn();
 			assert.equal(config.herp, 'derp');
+			done();
+		});
+	});
+
+	describe('plugins', function() {
+		it('makes plugins available to task', function(done) {
+			require(taskLoader)({
+				taskDirectory: 'test/test-tasks',
+				plugins: { herp: 'derp' }
+			});
+
+			var plugins = gulp.tasks['plugins'].fn();
+			assert.equal(plugins.herp, 'derp');
 			done();
 		});
 	});

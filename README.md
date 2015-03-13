@@ -48,6 +48,37 @@ taskLoader({
 
 These options would convert a filename such as `move-all.js` to a task with the name `move:all`.
 
+### Plugins
+
+##### Using gulp-load-plugins
+
+You can use [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins) to easily lazy-load your gulp plugins. Use gulp-load-plugins in conjunction with gulp-simple-task-loader to minimize your gulpfile.
+
+```js
+'use strict';
+
+var taskLoader = require('gulp-simple-task-loader');
+var plugins = require('gulp-load-plugins')();
+
+taskLoader({ plugins: plugins });
+```
+
+##### Passing in plugins manually
+
+If not using gulp-load-plugins you must specify which plugins you want made available to your tasks.
+
+```js
+'use strict';
+
+var taskLoader = require('gulp-simple-task-loader');
+var plugins = {
+  bump: require('gulp-bump'),
+  mocha: require('gulp-mocha')
+};
+
+taskLoader({ plugins: plugins });
+```
+
 ## Structuring a task
 
 All tasks should be functions that receive the parameters `gulp`, `config`, and `plugins`.
@@ -66,6 +97,10 @@ module.exports = function(gulp, config, plugins) {
 
 ### Tasks with dependencies
 
+Both `deps` and `fn` are optional. This allows you to create a task that strictly calls other tasks, or a task that doesn't have dependencies. If there are no dependencies for the task you can use the above format for creating a basic task.
+
+The values shown below are the defaults.
+
 ```js
 'use strict';
 
@@ -77,27 +112,59 @@ module.exports = function(gulp, config, plugins) {
 };
 ```
 
-## Examples
+## Complete examples
 
 ### Using gulp-load-plugins
 
-You can use [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins) to easily lazy-load your gulp plugins. Use gulp-load-plugins in conjunction with gulp-simple-task-loader to minimize your gulpfile.
-
 ```js
-var taskLoader = require('gulp-simple-task-loader');
-var plugins = require('gulp-load-plugins')();
+(gulpfile.js)
 
-taskLoader({ plugins: plugins });
+'use strict';
+
+var taskLoader = require('gulp-simple-task-loader');
+var plugins = require('gulp-load-plugins');
+
+taskLoader({
+  filenameDelimiter: '-',
+  tasknameDelimiter: ':',
+  plugins: plugins
+});
 ```
 
-### Passing in plugins manually
+```js
+(tasks/lint-all.js)
+
+'use strict';
+
+module.exports = function(gulp, config, plugins) {
+  return {
+    deps: [ 'lint:client', 'lint:server' ]
+  };
+};
+```
 
 ```js
-var taskLoader = require('gulp-simple-task-loader');
-var plugins = {
-  bump: require('gulp-bump'),
-  mocha: require('gulp-mocha')
-};
+(tasks/lint-client.js)
 
-taskLoader({ plugins: plugins });
+'use strict';
+
+module.exports = function(gulp, config, plugins) {
+  return function() {
+    return gulp.src('./client/**/*.js')
+      .pipe(plugins.jshint);
+  };
+};
+```
+
+```js
+(tasks/lint-server.js)
+
+'use strict';
+
+module.exports = function(gulp, config, plugins) {
+  return function() {
+    return gulp.src('./server/**/*.js')
+      .pipe(plugins.jshint);
+  };
+};
 ```

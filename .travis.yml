@@ -1,3 +1,6 @@
 language: node_js
 node_js:
 - "0.10.36"
+after_script:
+- istanbul cover ./node_modules/mocha/bin/_mocha test/**/*.spec.node_js
+- node node_modules/lcov-filter/index.js ./coverage/lcov.info config | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage

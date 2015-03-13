@@ -112,9 +112,7 @@ module.exports = function(gulp, config, plugins) {
 };
 ```
 
-## Complete examples
-
-### Using gulp-load-plugins
+## Complete example using gulp-load-plugins
 
 ```js
 (gulpfile.js)

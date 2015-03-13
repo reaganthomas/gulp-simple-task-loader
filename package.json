@@ -1,6 +1,6 @@
 {
   "name": "gulp-simple-task-loader",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "A simple task loader for gulp",
   "keywords": [
     "gulp",
@@ -19,7 +19,6 @@
     "url": "http://github.com/reaganthomas/gulp-simple-task-loader"
   },
   "dependencies": {
-    "debug": "^2.1.1",
     "gulp": "^3.8.11",
     "lodash": "^3.3.1"
   },

@@ -3,7 +3,6 @@
 var fs = require("fs");
 var _ = require("lodash");
 var gulp = require("gulp");
-var debug = require("debug")("gulp-simple-task-loader");
 var path = require("path");
 
 var defaultOptions = {

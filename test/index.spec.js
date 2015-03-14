@@ -37,7 +37,7 @@ describe('gulp-simple-task-loader', function() {
 				tasknameDelimiter: ':'
 			});
 
-			var config = gulp.tasks['config'].fn();
+			var config = gulp.tasks.config.fn();
 			assert.equal(config.filenameDelimiter, '-');
 			assert.equal(config.tasknameDelimiter, ':');
 			done();
@@ -49,7 +49,7 @@ describe('gulp-simple-task-loader', function() {
 				herp: 'derp'
 			});
 
-			var config = gulp.tasks['config'].fn();
+			var config = gulp.tasks.config.fn();
 			assert.equal(config.herp, 'derp');
 			done();
 		});
@@ -62,7 +62,7 @@ describe('gulp-simple-task-loader', function() {
 				plugins: { herp: 'derp' }
 			});
 
-			var plugins = gulp.tasks['plugins'].fn();
+			var plugins = gulp.tasks.plugins.fn();
 			assert.equal(plugins.herp, 'derp');
 			done();
 		});

@@ -7,6 +7,8 @@ Gulp Simple Task Loader
 [![Coverage Status](https://coveralls.io/repos/reaganthomas/gulp-simple-task-loader/badge.svg)](https://coveralls.io/r/reaganthomas/gulp-simple-task-loader)
 [![Build Status](https://travis-ci.org/reaganthomas/gulp-simple-task-loader.svg)](https://travis-ci.org/reaganthomas/gulp-simple-task-loader)
 [![Dependency Status](https://david-dm.org/reaganthomas/gulp-simple-task-loader.svg)](https://david-dm.org/reaganthomas/gulp-simple-task-loader)
+[![Codacy Badge](https://www.codacy.com/project/badge/1df06ca33c3d430992798f311eab6577)](https://www.codacy.com/public/reaganmthomas/gulp-simple-task-loader)
+
 [![Pull Requests Status](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/pr?style=flat)](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/pr?style=flat)
 [![Issues Status](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/issue?style=flat)](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/issue?style=flat)
 

@@ -44,7 +44,7 @@ taskLoader({
 
 ### Task Directory
 
-Only put gulp tasks in your `taskDirectory`. All files in this directory will be attempted to be read as gulp tasks. Currently there is no support for nested tasks -- all tasks must be at the root level of your `taskDirectory`.
+Only put gulp tasks in your `taskDirectory`. All `.js` files in this directory will be attempted to be read as gulp tasks. Nested directories are supported as of `v1.0.29`.
 
 ### Delimiters
 

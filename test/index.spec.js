@@ -1,13 +1,14 @@
 'use strict';
 
 var assert = require('assert');
-var gulp = require('gulp');
-
 var taskLoader = '../build/index.js';
+var gulp;
 
 describe('gulp-simple-task-loader', function() {
 	beforeEach(function() {
 		delete require.cache[require.resolve(taskLoader)];
+		delete require.cache[require.resolve('gulp')];
+		gulp = require('gulp');
 	});
 
 	describe('edge cases', function() {
@@ -25,6 +26,45 @@ describe('gulp-simple-task-loader', function() {
 				}, Error);
 				done();
 			});
+
+			it('should error when directory is not a string', function(done) {
+				assert.throws(function() {
+					require(taskLoader)({ taskDirectory: 9 });
+				}, Error);
+				done();
+			});
+
+			it('should skip files that are directories', function(done) {
+				require(taskLoader)({
+					taskDirectory: 'test/test-tasks',
+					filenameDelimiter: '-',
+					tasknameDelimiter: ':'
+				});
+
+				assert.equal(Object.keys(gulp.tasks).length, 4);
+				done();
+			});
+
+			it('should allow ./ paths', function(done) {
+				require(taskLoader)({ taskDirectory: './test/test-tasks' });
+
+				assert.equal(Object.keys(gulp.tasks).length, 4);
+				done();
+			});
+		});
+	});
+
+	describe('functions', function() {
+		it('should execute functions for test coverage', function(done) {
+			require(taskLoader)({
+				taskDirectory: 'test/test-tasks',
+				filenameDelimiter: '-',
+				tasknameDelimiter: ':'
+			});
+
+			gulp.tasks['only:deps'].fn();
+			gulp.tasks['only:fn'].fn();
+			done();
 		});
 	});
 

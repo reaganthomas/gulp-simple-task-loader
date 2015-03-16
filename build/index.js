@@ -3,7 +3,6 @@
 var fs = require("fs");
 var _ = require("lodash");
 var gulp = require("gulp");
-var debug = require("debug")("gulp-simple-task-loader");
 var path = require("path");
 
 var defaultOptions = {
@@ -14,37 +13,55 @@ var defaultOptions = {
   config: {}
 };
 
+function voidFunction() {
+  return;
+}
+
 module.exports = function (options) {
   options = _.assign(defaultOptions, options);
 
-  if (typeof options.taskDirectory !== String) {
-    options.taskDirectory = defaultOptions.taskDirectory;
+  if (typeof options.taskDirectory !== "string") {
+    throw new Error("Task directory must be a string containing the relative path to a task directory");
   }
 
-  if (options.taskDirectory[0] !== path.sep && options.taskDirectory.slice(0, 2) !== "." + path.sep) {
-    options.taskDirectory = path.join(process.cwd(), options.taskDirectory);
+  if (options.taskDirectory.slice(0, 2) === "." + path.sep) {
+    options.taskDirectory = options.taskDirectory.slice(2);
   }
+
+  options.taskDirectory = path.join(process.cwd(), options.taskDirectory);
 
   var dirStat = fs.statSync(options.taskDirectory);
   if (!dirStat.isDirectory()) {
-    throw new Error("Error: " + options.taskDirectory + " is not a directory");
+    throw new Error(options.taskDirectory + " is not a directory");
   }
 
-  fs.readdirSync(options.taskDirectory).forEach(function (filename) {
-    var file = path.join(options.taskDirectory, filename);
-    var stat = fs.statSync(file);
+  function processDirectory(dir) {
+    fs.readdirSync(dir).filter(function (filename) {
+      var file = path.resolve(dir, filename);
+      return filename.slice(-3) === ".js" || fs.statSync(file).isDirectory();
+    }).map(function (filename) {
+      var file = path.resolve(dir, filename);
 
-    if (stat.isFile() && filename.slice(-3) !== ".js") {
-      return;
-    }
+      if (fs.statSync(file).isDirectory()) {
+        return { directory: true, filename: filename };
+      } else {
+        var taskname = filename.slice(0, -3);
+        taskname = taskname.split(options.filenameDelimiter).join(options.tasknameDelimiter);
 
-    var taskname = filename.slice(0, -3);
-    taskname = taskname.split(options.filenameDelimiter).join(options.tasknameDelimiter);
+        return { file: file, filename: filename, taskname: taskname };
+      }
+    }).forEach(function (obj) {
+      if (obj.directory) {
+        processDirectory(dir + "/" + obj.filename);
+      } else {
+        var taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, ["config", "plguins"])), options.plugins);
+        var taskdeps = taskinfo.deps || [];
+        var taskfn = taskinfo.deps || taskinfo.fn ? taskinfo.fn || voidFunction : taskinfo;
 
-    var taskinfo = require(file)(gulp, _.defaults(options.config, _.omit(options, ["config", "plugins"])), options.plugins);
-    var taskdeps = taskinfo.deps || [];
-    var taskfn = taskinfo.fn ? taskinfo.fn || function () {} : taskinfo;
+        gulp.task(obj.taskname, taskdeps, taskfn);
+      }
+    });
+  }
 
-    gulp.task(taskname, taskdeps, taskfn);
-  });
+  processDirectory(options.taskDirectory);
 };

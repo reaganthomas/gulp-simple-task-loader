@@ -1,6 +1,6 @@
 {
   "name": "gulp-simple-task-loader",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "A simple task loader for gulp",
   "keywords": [
     "gulp",

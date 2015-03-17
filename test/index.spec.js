@@ -41,14 +41,14 @@ describe('gulp-simple-task-loader', function() {
 					tasknameDelimiter: ':'
 				});
 
-				assert.equal(Object.keys(gulp.tasks).length, 4);
+				assert.equal(Object.keys(gulp.tasks).length, 5);
 				done();
 			});
 
 			it('should allow ./ paths', function(done) {
 				require(taskLoader)({ taskDirectory: './test/test-tasks' });
 
-				assert.equal(Object.keys(gulp.tasks).length, 4);
+				assert.equal(Object.keys(gulp.tasks).length, 5);
 				done();
 			});
 		});

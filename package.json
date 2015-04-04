@@ -13,12 +13,16 @@
     "test": "gulp test"
   },
   "author": "Reagan Thomas",
+  "contributors": [
+    "Jonathan Chapman <chafnan@gmail.com> (https://github.com/chafnan)"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "http://github.com/reaganthomas/gulp-simple-task-loader"
   },
   "dependencies": {
+    "coffee-script": "^1.9.1",
     "gulp": "^3.8.11",
     "lodash": "^3.3.1"
   },

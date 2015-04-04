@@ -5,6 +5,9 @@ var _ = require("lodash");
 var gulp = require("gulp");
 var path = require("path");
 
+// register coffeescript to handle any coffee files
+require("coffee-script/register");
+
 var defaultOptions = {
   taskDirectory: "gulp-tasks",
   plugins: {},
@@ -38,14 +41,15 @@ module.exports = function (options) {
   function processDirectory(dir) {
     fs.readdirSync(dir).filter(function (filename) {
       var file = path.resolve(dir, filename);
-      return filename.slice(-3) === ".js" || fs.statSync(file).isDirectory();
+      var extname = path.extname(filename);
+      return extname === ".js" || extname === ".coffee" || fs.statSync(file).isDirectory();
     }).map(function (filename) {
       var file = path.resolve(dir, filename);
 
       if (fs.statSync(file).isDirectory()) {
         return { directory: true, filename: filename };
       } else {
-        var taskname = filename.slice(0, -3);
+        var taskname = path.basename(filename, path.extname(filename));
         taskname = taskname.split(options.filenameDelimiter).join(options.tasknameDelimiter);
 
         return { file: file, filename: filename, taskname: taskname };

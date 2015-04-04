@@ -5,9 +5,6 @@ var _ = require('lodash');
 var gulp = require('gulp');
 var path = require('path');
 
-// register coffeescript to handle any coffee files
-require('coffee-script/register');
-
 var defaultOptions = {
   taskDirectory: 'gulp-tasks',
   plugins: {},

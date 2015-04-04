@@ -4,6 +4,9 @@ var assert = require('assert');
 var taskLoader = '../build/index.js';
 var gulp;
 
+// register coffeescript to handle any coffee files
+require('coffee-script/register');
+
 describe('gulp-simple-task-loader', function() {
 	beforeEach(function() {
 		delete require.cache[require.resolve(taskLoader)];

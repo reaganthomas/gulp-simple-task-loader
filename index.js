@@ -57,7 +57,7 @@ module.exports = function(options) {
         if(obj.directory) {
           processDirectory(dir + '/' + obj.filename);
         } else {
-          let taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, [ 'config', 'plguins' ])), options.plugins);
+          let taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, [ 'config', 'plugins' ])), options.plugins);
           let taskdeps = taskinfo.deps || [];
           let taskfn = (taskinfo.deps || taskinfo.fn) ? (taskinfo.fn || voidFunction) : taskinfo;
 

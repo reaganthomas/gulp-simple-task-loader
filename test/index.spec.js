@@ -4,6 +4,9 @@ var assert = require('assert');
 var taskLoader = '../build/index.js';
 var gulp;
 
+// register coffeescript to handle any coffee files
+require('coffee-script/register');
+
 describe('gulp-simple-task-loader', function() {
 	beforeEach(function() {
 		delete require.cache[require.resolve(taskLoader)];
@@ -41,16 +44,17 @@ describe('gulp-simple-task-loader', function() {
 					tasknameDelimiter: ':'
 				});
 
-				assert.equal(Object.keys(gulp.tasks).length, 5);
+				assert.equal(Object.keys(gulp.tasks).length, 6);
 				done();
 			});
 
 			it('should allow ./ paths', function(done) {
 				require(taskLoader)({ taskDirectory: './test/test-tasks' });
 
-				assert.equal(Object.keys(gulp.tasks).length, 5);
+				assert.equal(Object.keys(gulp.tasks).length, 6);
 				done();
 			});
+
 		});
 	});
 
@@ -66,6 +70,18 @@ describe('gulp-simple-task-loader', function() {
 			gulp.tasks['only:fn'].fn();
 			done();
 		});
+
+    it('should exeute functions for coffee tests', function(done) {
+      require(taskLoader)({
+        taskDirectory: 'test/test-tasks',
+        plugins: { derp: 'herp' },
+        filenameDelimiter: '-',
+        tasknameDelimiter: ':'
+      });
+
+      gulp.tasks['coffee:task'].fn()
+      done()
+    });
 	});
 
 	describe('options', function() {

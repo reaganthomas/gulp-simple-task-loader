@@ -97,9 +97,11 @@ taskLoader({ plugins: plugins });
 
 All tasks should be functions that receive the parameters `gulp`, `config`, and `plugins`.
 
-There are 2 ways to structure a task -- returning a function that executes the task, or returning an object that contains dependencies and the function that executes the task.
+There are 2 ways to structure a task -- returning a function that executes the task, or returning an object that contains dependencies, parameters, and the function that executes the task.
 
 ### Basic tasks
+
+This is a typical function as you are used to with gulp.
 
 ```js
 'use strict';
@@ -111,7 +113,9 @@ module.exports = function(gulp, config, plugins) {
 
 ### Tasks with dependencies
 
-Both `deps` and `fn` are optional. This allows you to create a task that strictly calls other tasks, or a task that doesn't have dependencies. If there are no dependencies for the task you can use the above format for creating a basic task.
+All 3 object keys (`deps`, `params`, and `fn`) are optional. This allows you to create a task that strictly calls other tasks, a task that is parameterized, or a task that just acts like a normal task. 
+
+If there are no dependencies or parameters for the task you can use the above "Basic task" format for creating a basic task.
 
 The values shown below are the defaults.
 
@@ -121,9 +125,18 @@ The values shown below are the defaults.
 module.exports = function(gulp, config, plugins) {
   return {
     deps: [],                   // an array of task names to execute before this task
+    params: [],                 // an array of parameters to send to `fn`
     fn: function([callback]) {} // the task functionality -- callback optional
   };
 };
+```
+
+Please note that if you use the `params` key your `fn` must be of the following form:
+
+```js
+params: [ 'a', 'b' ],
+fn: function(param, cb) {} // where param is an item from the params array,
+                           // and cb is a callback to be called at the end of your function
 ```
 
 ## Complete examples
@@ -181,4 +194,42 @@ module.exports = function(gulp, config, plugins) {
       .pipe(plugins.jshint);
   };
 };
+```
+
+### Parameterize tasks
+
+```js
+(gulpfile.js)
+
+'use strict';
+
+var taskLoader = require('gulp-simple-task-loader');
+var plugins = require('gulp-load-plugins');
+
+taskLoader({
+  filenameDelimiter: '-',
+  tasknameDelimiter: ':',
+  plugins: plugins
+});
+```
+
+```js
+(tasks/parameterized.js)
+
+'use strict';
+
+module.exports = function(gulp, config, plugins) {
+  return {
+    params: [ '1', '2' ],
+    fn: function(param, cb) {
+      console.log(param)
+    }
+  };
+};
+```
+
+The task in `parameterized.js` would produce the following output:
+```bash
+1
+2
 ```

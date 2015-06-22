@@ -3,12 +3,18 @@
 var assert = require('assert');
 var taskLoader = '../build/index.js';
 var gulp;
+var log = [];
 
 // register coffeescript to handle any coffee files
 require('coffee-script/register');
 
+console.log = function() {
+	log.push([].slice.call(arguments));
+};
+
 describe('gulp-simple-task-loader', function() {
 	beforeEach(function() {
+		log = [];
 		delete require.cache[require.resolve(taskLoader)];
 		delete require.cache[require.resolve('gulp')];
 		gulp = require('gulp');
@@ -44,14 +50,14 @@ describe('gulp-simple-task-loader', function() {
 					tasknameDelimiter: ':'
 				});
 
-				assert.equal(Object.keys(gulp.tasks).length, 6);
+				assert.equal(Object.keys(gulp.tasks).length, 7);
 				done();
 			});
 
 			it('should allow ./ paths', function(done) {
 				require(taskLoader)({ taskDirectory: './test/test-tasks' });
 
-				assert.equal(Object.keys(gulp.tasks).length, 6);
+				assert.equal(Object.keys(gulp.tasks).length, 7);
 				done();
 			});
 
@@ -79,9 +85,27 @@ describe('gulp-simple-task-loader', function() {
         tasknameDelimiter: ':'
       });
 
-      gulp.tasks['coffee:task'].fn()
-      done()
+      gulp.tasks['coffee:task'].fn();
+      done();
     });
+	});
+
+	describe('params', function() {
+		it('should parameterize a task', function(done) {
+			require(taskLoader)({
+				taskDirectory: 'test/test-tasks',
+				filenameDelimiter: '-',
+				tasknameDelimiter: ':'
+			});
+
+			gulp.tasks['params'].fn();
+
+			assert.equal(log.length, 2);
+			assert.equal(log[0], '1');
+			assert.equal(log[1], '2');
+
+			done();
+		});
 	});
 
 	describe('options', function() {

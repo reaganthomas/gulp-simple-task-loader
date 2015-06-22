@@ -4,11 +4,12 @@ var gulp = require('gulp');
 var to5 = require('gulp-6to5');
 var bump = require('gulp-bump');
 var mocha = require('gulp-mocha');
+var babel = require('gulp-babel');
 var istanbul = require('gulp-istanbul');
 
 gulp.task('build', function() {
 	return gulp.src('index.js')
-    .pipe(to5())
+    .pipe(babel())
     .pipe(gulp.dest('./build'));
 });
 
@@ -23,7 +24,7 @@ gulp.task('coverage', [ 'build' ], function(cb) {
 		.pipe(istanbul.hookRequire())
 		.on('finish', function() {
 			gulp.src('./test/**/*.js')
-				.pipe(mocha({ reporter: 'dot' }))
+				.pipe(mocha({ reporter: 'spec' }))
 				.pipe(istanbul.writeReports())
 				.on('end', cb);
 		});

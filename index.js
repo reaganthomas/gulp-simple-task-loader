@@ -1,9 +1,10 @@
 'use strict';
 
-var fs = require('fs');
-var _ = require('lodash');
+var async = require('async');
 var gulp = require('gulp');
 var path = require('path');
+var _ = require('lodash');
+var fs = require('fs');
 
 var defaultOptions = {
   taskDirectory: 'gulp-tasks',
@@ -36,35 +37,51 @@ module.exports = function(options) {
   }
 
   function processDirectory(dir) {
-    fs.readdirSync(dir)
-      .filter(function(filename) {
-        let file = path.resolve(dir, filename);
-        var extname = path.extname(filename);
-        return (extname === '.js' || extname === '.coffee' || fs.statSync(file).isDirectory());
-      })
-      .map(function(filename) {
-        let file = path.resolve(dir, filename);
-        
-        if(fs.statSync(file).isDirectory()) {
-          return { directory: true, filename: filename };
-        } else {
-          let taskname = path.basename(filename, path.extname(filename));
-          taskname = taskname.split(options.filenameDelimiter).join(options.tasknameDelimiter);
+    function filterFilenames(filename) {
+      let file = path.resolve(dir, filename);
+      let extname = path.extname(filename);
+      return (extname === '.js' || extname === '.coffee' || fs.statSync(file).isDirectory());
+    }
 
-          return { file: file, filename: filename, taskname: taskname };
-        }
-      })
-      .forEach(function(obj) {
-        if(obj.directory) {
-          processDirectory(dir + '/' + obj.filename);
-        } else {
-          let taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, [ 'config', 'plguins' ])), options.plugins);
-          let taskdeps = taskinfo.deps || [];
-          let taskfn = (taskinfo.deps || taskinfo.fn) ? (taskinfo.fn || voidFunction) : taskinfo;
+    function mapFiles(filename) {
+      let file = path.resolve(dir, filename);
 
+      if(fs.statSync(file).isDirectory()) {
+        return { directory: true, filename: filename };
+      } else {
+        let taskname = path.basename(filename, path.extname(filename));
+        taskname = taskname.split(options.filenameDelimiter).join(options.tasknameDelimiter);
+        return { file: file, filename: filename, taskname: taskname };
+      }
+    }
+
+    function createTask(obj) {
+      if(obj.directory) {
+        processDirectory(dir + '/' + obj.filename);
+      } else {
+        let taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, [ 'config', 'plugins' ])), options.plugins);
+        let taskdeps = taskinfo.deps || [];
+        let taskparams = taskinfo.params || [];
+        let taskfn = (taskinfo.deps || taskinfo.fn || taskinfo.params) ? (taskinfo.fn || voidFunction) : taskinfo;
+
+        if(taskparams.length > 0) {
+          gulp.task(obj.taskname, taskdeps, function() {
+            async.map(taskparams, function(params, callback) {
+              taskfn(params, callback);
+            }, function(err, results) {
+              if(err) throw new Error(err);
+            });
+          });
+        } else {
           gulp.task(obj.taskname, taskdeps, taskfn);
         }
-      });
+      }
+    }
+
+    fs.readdirSync(dir)
+      .filter(filterFilenames)
+      .map(mapFiles)
+      .forEach(createTask);
   }
 
   processDirectory(options.taskDirectory);

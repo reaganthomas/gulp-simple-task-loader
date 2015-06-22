@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var to5 = require('gulp-6to5');
 var bump = require('gulp-bump');
 var mocha = require('gulp-mocha');
 var babel = require('gulp-babel');

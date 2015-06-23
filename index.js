@@ -55,33 +55,37 @@ module.exports = function(options) {
       }
     }
 
-    function createTask(obj) {
+    function handleFileOrDirectory(obj) {
       if(obj.directory) {
         processDirectory(dir + '/' + obj.filename);
       } else {
-        let taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, [ 'config', 'plugins' ])), options.plugins);
-        let taskdeps = taskinfo.deps || [];
-        let taskparams = taskinfo.params || [];
-        let taskfn = (taskinfo.deps || taskinfo.fn || taskinfo.params) ? (taskinfo.fn || voidFunction) : taskinfo;
+        createTask(obj);
+      }
+    }
 
-        if(taskparams.length > 0) {
-          gulp.task(obj.taskname, taskdeps, function() {
-            async.map(taskparams, function(params, callback) {
-              taskfn(params, callback);
-            }, function(err, results) {
-              if(err) throw new Error(err);
-            });
+    function createTask(obj) {
+      let taskinfo = require(obj.file)(gulp, _.defaults(options.config, _.omit(options, [ 'config', 'plugins' ])), options.plugins);
+      let taskdeps = taskinfo.deps || [];
+      let taskparams = taskinfo.params || [];
+      let taskfn = (taskinfo.deps || taskinfo.fn || taskinfo.params) ? (taskinfo.fn || voidFunction) : taskinfo;
+
+      if(taskparams.length > 0) {
+        gulp.task(obj.taskname, taskdeps, function() {
+          async.map(taskparams, function(params, callback) {
+            taskfn(params, callback);
+          }, function(err, results) {
+            if(err) throw new Error(err);
           });
-        } else {
-          gulp.task(obj.taskname, taskdeps, taskfn);
-        }
+        });
+      } else {
+        gulp.task(obj.taskname, taskdeps, taskfn);
       }
     }
 
     fs.readdirSync(dir)
       .filter(filterFilenames)
       .map(mapFiles)
-      .forEach(createTask);
+      .forEach(handleFileOrDirectory);
   }
 
   processDirectory(options.taskDirectory);

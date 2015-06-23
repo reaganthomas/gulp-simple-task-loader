@@ -73,8 +73,10 @@ module.exports = function (options) {
         gulp.task(obj.taskname, taskdeps, function () {
           async.map(taskparams, function (params, callback) {
             taskfn(params, callback);
-          }, function (err, results) {
-            if (err) throw new Error(err);
+          }, function (err) {
+            if (err) {
+              throw new Error(err);
+            }
           });
         });
       } else {

@@ -98,7 +98,7 @@ describe('gulp-simple-task-loader', function() {
 				tasknameDelimiter: ':'
 			});
 
-			gulp.tasks['params'].fn();
+			gulp.tasks.params.fn();
 
 			assert.equal(log.length, 2);
 			assert.equal(log[0], '1');

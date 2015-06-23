@@ -1,4 +1,4 @@
 'use strict'
 
-module.exports = (gulp, config, plugins) ->
+module.exports = (gulp, config) ->
   fn: ->

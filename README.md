@@ -222,7 +222,8 @@ module.exports = function(gulp, config, plugins) {
   return {
     params: [ '1', '2' ],
     fn: function(param, cb) {
-      console.log(param)
+      console.log(param);
+      cb();
     }
   };
 };

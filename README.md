@@ -23,6 +23,14 @@ Easily modularize gulp tasks and minify your gulpfile. Works well with [gulp-loa
 npm install gulp-simple-task-loader --save-dev
 ```
 
+## Test
+
+To test this package clone it and run the following command:
+
+```sh
+npm test
+```
+
 ## Usage
 
 ```js

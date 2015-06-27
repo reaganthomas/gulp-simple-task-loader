@@ -11,9 +11,6 @@ Gulp Simple Task Loader
 
 [![Pull Requests Status](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/pr?style=flat)](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/pr?style=flat)
 [![Issues Status](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/issue?style=flat)](http://issuestats.com/github/reaganthomas/gulp-simple-task-loader/badge/issue?style=flat)
-[![Tips Status](http://img.shields.io/gratipay/reaganthomas.svg)](http://img.shields.io/gratipay/reaganthomas.svg)
-
-[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.svg)](https://gratipay.com/reaganthomas/)
 
 Easily modularize gulp tasks and minify your gulpfile. Works well with [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins).
 

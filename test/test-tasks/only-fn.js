@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(gulp, config) {
+module.exports = function() {
 	return {
 		fn: function() {}
 	};

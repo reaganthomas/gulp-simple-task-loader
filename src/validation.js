@@ -19,6 +19,14 @@ module.exports = {
     if(typeof options.configFile !== 'string') {
       throw new Error('Config file must be a string containing the relative path to a config file');
     }
+
+    if(typeof options.config !== 'object') {
+      throw new Error('Config must be an object containing configuration options for your gulp tasks');
+    }
+
+    if(typeof options.plugins !== 'object') {
+      throw new Error('Plugins must be an object containing plugins you wish to use in your gulp tasks');
+    }
   },
 
   validateTaskDirectory: function(taskDirectory) {

@@ -64,6 +64,20 @@ describe('gulp-simple-task-loader', function() {
 				done();
 			});
 
+			it('should error when config is not an object', function(done) {
+				assert.throws(function() {
+					require(taskLoader)({ config: '' });
+				}, Error);
+				done();
+			});
+
+			it('should error when plugins is not an object', function(done) {
+				assert.throws(function() {
+					require(taskLoader)({ plugins: '' });
+				}, Error);
+				done();
+			});
+
 			it('should skip files that are directories', function(done) {
 				require(taskLoader)({
 					taskDirectory: 'test/test-tasks',

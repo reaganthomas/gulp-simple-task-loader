@@ -24,14 +24,14 @@ describe('gulp-simple-task-loader', function() {
 		describe('task directory errors', function() {
 			it('should error when directory does not exist', function(done) {
 				assert.throws(function() {
-					require(taskLoader)();
+					require(taskLoader)({ taskDirectory: 'gulp-tasks' });
 				}, Error);
 				done();
 			});
 
 			it('should error when directory is not a directory', function(done) {
 				assert.throws(function() {
-					require(taskLoader)({ taskDirectory: 'index.js' });
+					require(taskLoader)({ taskDirectory: '.gitignore' });
 				}, Error);
 				done();
 			});

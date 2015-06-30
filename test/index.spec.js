@@ -38,7 +38,28 @@ describe('gulp-simple-task-loader', function() {
 
 			it('should error when directory is not a string', function(done) {
 				assert.throws(function() {
-					require(taskLoader)({ taskDirectory: 9 });
+					require(taskLoader)({ taskDirectory: {} });
+				}, Error);
+				done();
+			});
+
+			it('should error when tasknameDelimiter is not a string', function(done) {
+				assert.throws(function() {
+					require(taskLoader)({ tasknameDelimiter: {} });
+				}, Error);
+				done();
+			});
+
+			it('should error when filenameDelimiter is not a string', function(done) {
+				assert.throws(function() {
+					require(taskLoader)({ filenameDelimiter: {} });
+				}, Error);
+				done();
+			});
+
+			it('should error when configFile is not a string', function(done) {
+				assert.throws(function() {
+					require(taskLoader)({ configFile: {} });
 				}, Error);
 				done();
 			});

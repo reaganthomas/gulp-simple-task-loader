@@ -9,8 +9,8 @@ var fs = require('fs');
 var validation = require('./validation');
 var processor = require('./processor');
 
-module.exports = function (options) {
-  var defaultOptions = {
+module.exports = function(options) {
+  let defaultOptions = {
     taskDirectory: 'gulp-tasks',
     plugins: {},
     filenameDelimiter: '',
@@ -23,7 +23,7 @@ module.exports = function (options) {
 
   validation.validateOptions(options);
 
-  if (options.taskDirectory.slice(0, 2) === '.' + path.sep) {
+  if(options.taskDirectory.slice(0,2) === '.' + path.sep) {
     options.taskDirectory = options.taskDirectory.slice(2);
   }
 

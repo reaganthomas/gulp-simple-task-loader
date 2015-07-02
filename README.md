@@ -267,6 +267,7 @@ Documented below are any significant changes to the package.
 
 * 1.x.x
   * 1.2.x
+    * [1.2.4](https://github.com/reaganthomas/gulp-simple-task-loader/commit/8aceeee667076cb9b86f8022427866820d51ce30) - added table of contents and changelog to README.md
     * [1.2.1](https://github.com/reaganthomas/gulp-simple-task-loader/commit/767318e136aa7cb27925e73587487d11486ed50f) - added testing for `plugins` and `config` options
     * [1.2.0](https://github.com/reaganthomas/gulp-simple-task-loader/commit/768cc7e19488193a2171602a50e17c21f1cf9067) - restructured package to be more modular
   * 1.1.x

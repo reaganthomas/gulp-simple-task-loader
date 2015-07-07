@@ -88,5 +88,17 @@
       assert.equal(Object.keys(gulp.tasks).length, 1);
       done();
     });
+
+    it('should overwrite options in config object', function(done) {
+      require(taskLoader)({
+        taskDirectory: 'test/test-tasks',
+        configFile: 'config-file.js',
+        config: { derp: false }
+      });
+
+      var config = gulp.tasks.config.fn();
+      assert.equal(config.derp, true);
+      done();
+    });
   });
 })();

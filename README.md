@@ -24,6 +24,7 @@ Easily modularize gulp tasks and minify your gulpfile. Works well with [gulp-loa
     * [Plugins](#options-plugins)
       * [Using gulp-load-plugins](#options-plugins-using-gulp-load-plugins)
       * [Passing in plugins manually](#options-plugins-passing-in-plugins-manually)
+    * [Config File](#options-config-file)
   * [Structuring a task](#structuring-a-task)
     * [Basic Tasks](#structuring-a-task-basic-tasks)
     * [Tasks with dependencies and/or parameters](#structuring-a-task-tasks-with-dependencies-and-or-parameters)
@@ -66,7 +67,8 @@ taskLoader({
   plugins: {},                 // the plugins to expose to your tasks
   filenameDelimiter: '',       // a character or string of characters to replace in task filenames
   taskDelimiter: '',           // a character or string of characters to insert in place of removed filenameDelimiter
-  config: {}                   // an object to store configuration for use in tasks
+  config: {},                  // an object to store configuration for use in tasks
+  configFile: ''               // the relative path to your task configuration file from your task directory
 });
 ```
 
@@ -107,6 +109,7 @@ taskLoader({ plugins: plugins });
 If not using gulp-load-plugins you must specify which plugins you want made available to your tasks.
 
 ```js
+(gulpfile.js)
 'use strict';
 
 var taskLoader = require('gulp-simple-task-loader');
@@ -116,6 +119,29 @@ var plugins = {
 };
 
 taskLoader({ plugins: plugins });
+```
+
+<h3 id="options-config-file">Config File</h3>
+
+You have the option of passing in the location of a configuration file from within your task directory. Please note that the configuration file takes precedence over the `config` option that you may also pass in, meaning that any key in `config` is overwritten if the same key exists in the config file.
+
+```js
+(gulpfile.js)
+'use strict';
+
+var taskLoader = require('gulp-simple-task-loader');
+var config = { env: 'production' };
+
+taskLoader({ config: config, configFile: 'config.js' });
+```
+
+```js
+(config.js)
+'use strict';
+
+module.exports = {
+  // insert configuration options here
+};
 ```
 
 <h2 id="structuring-a-task">Structuring a task</h2>
@@ -138,7 +164,7 @@ module.exports = function(gulp, config, plugins) {
 
 <h3 id="structuring-a-task-tasks-with-dependencies-and-or-parameters">Tasks with dependencies and/or parameters</h3>
 
-All 3 object keys (`deps`, `params`, and `fn`) are optional. This allows you to create a task that strictly calls other tasks, a task that is parameterized, or a task that just acts like a normal task. 
+All 3 object keys (`deps`, `params`, and `fn`) are optional. This allows you to create a task that strictly calls other tasks, a task that is parameterized, or a task that just acts like a normal task.
 
 If there are no dependencies or parameters for the task you can use the above "Basic task" format for creating a basic task.
 
@@ -266,6 +292,8 @@ The task in `parameterized.js` would produce the following output:
 Documented below are any significant changes to the package.
 
 * 1.x.x
+  * 1.3.x
+    * [1.3.0]() - added feature for passing in configuration file [github issue #6](https://github.com/reaganthomas/gulp-simple-task-loader/issues/6); restructured test suite to section out functionality
   * 1.2.x
     * [1.2.4](https://github.com/reaganthomas/gulp-simple-task-loader/commit/8aceeee667076cb9b86f8022427866820d51ce30) - added table of contents and changelog to README.md
     * [1.2.1](https://github.com/reaganthomas/gulp-simple-task-loader/commit/767318e136aa7cb27925e73587487d11486ed50f) - added testing for `plugins` and `config` options

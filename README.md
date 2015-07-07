@@ -293,7 +293,7 @@ Documented below are any significant changes to the package.
 
 * 1.x.x
   * 1.3.x
-    * [1.3.0]() - added feature for passing in configuration file [github issue #6](https://github.com/reaganthomas/gulp-simple-task-loader/issues/6); restructured test suite to section out functionality
+    * [1.3.0](https://github.com/reaganthomas/gulp-simple-task-loader/commit/39342b76220c8071a7b9a60bc310dff8a8fbadb9) - added feature for passing in configuration file [github issue #6](https://github.com/reaganthomas/gulp-simple-task-loader/issues/6); restructured test suite to section out functionality
   * 1.2.x
     * [1.2.4](https://github.com/reaganthomas/gulp-simple-task-loader/commit/8aceeee667076cb9b86f8022427866820d51ce30) - added table of contents and changelog to README.md
     * [1.2.1](https://github.com/reaganthomas/gulp-simple-task-loader/commit/767318e136aa7cb27925e73587487d11486ed50f) - added testing for `plugins` and `config` options

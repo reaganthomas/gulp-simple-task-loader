@@ -9,7 +9,6 @@
   var configFileErrorString = 'Config file must be a string containing the relative path to a config file';
   var configErrorString = 'Config must be an object containing configuration options for your gulp tasks';
   var pluginsErrorString = 'Plugins must be an object containing plugins you wish to use in your gulp tasks';
-  var unknownOptionErrorString = 'Unknown option passed to validation';
 
   function validateOption(option, type, required, errorString) {
     switch(type) {
@@ -23,8 +22,6 @@
           throw new Error(errorString);
         }
         break;
-      default:
-        throw new Error(errorString || unknownOptionErrorString);
     }
   }
 

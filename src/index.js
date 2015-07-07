@@ -31,7 +31,7 @@
     options.configFile = (options.configFile) ? path.join(options.taskDirectory, options.configFile) : null;
     validation.validateConfigFile(options.configFile);
 
-    if(options.configFile !== '') {
+    if(options.configFile) {
       options.config = _.assign(options.config, require(options.configFile));
     }
 

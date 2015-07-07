@@ -1,7 +1,9 @@
-'use strict';
+(function() {
+	'use strict';
 
-module.exports = function() {
-	return {
-		deps: []
+	module.exports = function() {
+		return {
+			deps: []
+		};
 	};
-};
+})();

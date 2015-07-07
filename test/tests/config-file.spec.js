@@ -81,5 +81,12 @@
       assert.equal(gulp.tasks['config-file'], undefined);
       done();
     });
+
+    it('should ignore configFile option when not used', function(done) {
+      require(taskLoader)({ taskDirectory: 'test/test-tasks/test-dir' });
+
+      assert.equal(Object.keys(gulp.tasks).length, 1);
+      done();
+    });
   });
 })();

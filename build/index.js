@@ -28,7 +28,7 @@
     options.taskDirectory = transformer.transformTaskDirectory(options.taskDirectory);
     options.configFile = transformer.transformConfigFile(options.configFile);
 
-    options.taskDirectory = path.join(process.cwd(), options.taskDirectory);
+    options.taskDirectory = path.resolve(options.taskDirectory) === options.taskDirectory ? options.taskDirectory : path.join(path.resolve('.'), options.taskDirectory);
     validation.validateTaskDirectory(options.taskDirectory);
 
     options.configFile = options.configFile ? path.join(options.taskDirectory, options.configFile) : null;

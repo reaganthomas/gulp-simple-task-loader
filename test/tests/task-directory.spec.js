@@ -1,6 +1,7 @@
 (function() {
   'use strict';
 
+  var path = require('path');
   var assert = require('assert');
   var taskLoader = '../../build/index.js';
   var gulp;
@@ -53,6 +54,16 @@
     it('should allow ./ paths for task directory', function(done) {
       require(taskLoader)({
         taskDirectory: './test/test-tasks',
+        configFile: 'config-file.js'
+      });
+
+      assert.equal(Object.keys(gulp.tasks).length, 7);
+      done();
+    });
+
+    it('should allow absolute paths for task directory', function(done) {
+      require(taskLoader)({
+        taskDirectory: path.resolve('./test/test-tasks'),
         configFile: 'config-file.js'
       });
 

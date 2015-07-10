@@ -71,7 +71,7 @@ You can pass in an options object as shown below. The values shown below are the
 
 ```js
 taskLoader({
-  taskDirectory: 'gulp-tasks', // the directory your tasks are stored in
+  taskDirectory: 'gulp-tasks', // the directory your tasks are stored in (relative and absolute paths accepted)
   plugins: {},                 // the plugins to expose to your tasks
   filenameDelimiter: '',       // a character or string of characters to replace in task filenames
   taskDelimiter: '',           // a character or string of characters to insert in place of removed filenameDelimiter

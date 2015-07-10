@@ -74,7 +74,7 @@ taskLoader({
   taskDirectory: 'gulp-tasks', // the directory your tasks are stored in (relative and absolute paths accepted)
   plugins: {},                 // the plugins to expose to your tasks
   filenameDelimiter: '',       // a character or string of characters to replace in task filenames
-  taskDelimiter: '',           // a character or string of characters to insert in place of removed filenameDelimiter
+  tasknameDelimiter: '',       // a character or string of characters to insert in place of removed filenameDelimiter
   config: {},                  // an object to store configuration for use in tasks
   configFile: ''               // the relative path to your task configuration file from your task directory
 });
@@ -91,7 +91,7 @@ The purpose of the delimiters is to allow flexibility in task naming. A common c
 ```js
 taskLoader({
   filenameDelimiter: '-',
-  taskDelimiter: ':'
+  tasknameDelimiter: ':'
 });
 ```
 

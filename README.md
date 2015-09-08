@@ -57,16 +57,24 @@ taskLoader(options);
 
 This will load and register tasks for all files defined in your `taskDirectory`.
 
+If your tasks aren't registering (they are, but to the wrong gulp package) you can optionally specify a gulp to register the tasks to.
+
+```js
+var gulp = require('gulp');
+var taskLoader = require('gulp-simple-task-loader');
+taskLoader(options, gulp);
+```
+
 <h2 id="options">Options</h2>
 
 You can pass in an options object as shown below. The values shown below are the defaults.
 
 ```js
 taskLoader({
-  taskDirectory: 'gulp-tasks', // the directory your tasks are stored in
+  taskDirectory: 'gulp-tasks', // the directory your tasks are stored in (relative and absolute paths accepted)
   plugins: {},                 // the plugins to expose to your tasks
   filenameDelimiter: '',       // a character or string of characters to replace in task filenames
-  taskDelimiter: '',           // a character or string of characters to insert in place of removed filenameDelimiter
+  tasknameDelimiter: '',       // a character or string of characters to insert in place of removed filenameDelimiter
   config: {},                  // an object to store configuration for use in tasks
   configFile: ''               // the relative path to your task configuration file from your task directory
 });
@@ -74,7 +82,7 @@ taskLoader({
 
 <h3 id="options-task-directory">Task Directory</h3>
 
-Only put gulp tasks in your `taskDirectory`. All `.js` files in this directory will be attempted to be read as gulp tasks. Nested directories are supported as of `v1.0.29`.
+Only put gulp tasks in your `taskDirectory`. All `.js` files in this directory, unless the `configFile` option is being used, will be attempted to be read as gulp tasks. Nested directories are supported as of `v1.0.29`.
 
 <h3 id="options-delimiters">Delimiters</h3>
 
@@ -83,7 +91,7 @@ The purpose of the delimiters is to allow flexibility in task naming. A common c
 ```js
 taskLoader({
   filenameDelimiter: '-',
-  taskDelimiter: ':'
+  tasknameDelimiter: ':'
 });
 ```
 

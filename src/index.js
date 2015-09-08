@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  var gulp = require('gulp');
   var path = require('path');
   var _ = require('lodash');
 
@@ -9,7 +8,9 @@
   var validation = require('./validation');
   var processor = require('./processor');
 
-  module.exports = function(options) {
+  module.exports = function(options, existingGulp) {
+    let gulp = existingGulp || require('gulp');
+
     let defaultOptions = {
       taskDirectory: 'gulp-tasks',
       plugins: {},
@@ -25,7 +26,7 @@
     options.taskDirectory = transformer.transformTaskDirectory(options.taskDirectory);
     options.configFile = transformer.transformConfigFile(options.configFile);
 
-    options.taskDirectory = path.join(process.cwd(), options.taskDirectory);
+    options.taskDirectory = (path.resolve(options.taskDirectory) === options.taskDirectory) ? options.taskDirectory : path.join(path.resolve('.'), options.taskDirectory);
     validation.validateTaskDirectory(options.taskDirectory);
 
     options.configFile = (options.configFile) ? path.join(options.taskDirectory, options.configFile) : null;
@@ -38,7 +39,3 @@
     processor.processTaskDirectory(options, gulp);
   };
 })();
-
-/* Todo
-  - Possible plugins file?
-*/

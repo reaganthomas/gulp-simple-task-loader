@@ -30,12 +30,12 @@
     "coffee-script": "^1.9.1",
     "coveralls": "^2.11.2",
     "del": "^2.0.1",
-    "gulp-babel": "^5.1.0",
-    "gulp-bump": "^0.3.1",
+    "gulp-babel": "^6.1.1",
+    "gulp-bump": "^1.0.0",
     "gulp-istanbul": "^0.10.0",
     "gulp-mocha": "^2.0.0",
-    "istanbul": "^0.3.7",
+    "istanbul": "^0.4.1",
     "mocha": "^2.2.1",
-    "mocha-lcov-reporter": "0.0.2"
+    "mocha-lcov-reporter": "1.0.0"
   }
 }

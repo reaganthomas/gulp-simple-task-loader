@@ -31,7 +31,7 @@
     "coveralls": "^2.11.2",
     "del": "^2.0.1",
     "gulp-babel": "^6.1.1",
-    "gulp-bump": "^1.0.0",
+    "gulp-bump": "^2.4.0",
     "gulp-istanbul": "^0.10.0",
     "gulp-mocha": "^2.0.0",
     "istanbul": "^0.4.1",

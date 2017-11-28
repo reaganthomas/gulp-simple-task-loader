@@ -22,7 +22,7 @@
     "url": "http://github.com/reaganthomas/gulp-simple-task-loader"
   },
   "dependencies": {
-    "async": "^1.2.1",
+    "async": "^2.4.1",
     "gulp": "3.9.0",
     "lodash": "^4.5.1"
   },

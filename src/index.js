@@ -1,12 +1,12 @@
 (function() {
   'use strict';
 
-  var path = require('path');
-  var _ = require('lodash');
+  const path = require('path');
+  const _ = require('lodash');
 
-  var transformer = require('./transformer');
-  var validation = require('./validation');
-  var processor = require('./processor');
+  const transformer = require('./transformer');
+  const validation = require('./validation');
+  const processor = require('./processor');
 
   module.exports = function(options, existingGulp) {
     let gulp = existingGulp || require('gulp');

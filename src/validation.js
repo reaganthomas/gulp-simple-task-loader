@@ -1,14 +1,14 @@
 (function() {
   'use strict';
 
-  var fs = require('fs');
+  const fs = require('fs');
 
-  var taskDirectoryErrorString = 'Task directory must be a string containing the relative path to a task directory';
-  var filenameDelimiterErrorString = 'Filename delimiter must be a string';
-  var tasknameDelimiterErrorString = 'Taskname delimiter must be a string';
-  var configFileErrorString = 'Config file must be a string containing the relative path to a config file';
-  var configErrorString = 'Config must be an object containing configuration options for your gulp tasks';
-  var pluginsErrorString = 'Plugins must be an object containing plugins you wish to use in your gulp tasks';
+  const taskDirectoryErrorString = 'Task directory must be a string containing the relative path to a task directory';
+  const filenameDelimiterErrorString = 'Filename delimiter must be a string';
+  const tasknameDelimiterErrorString = 'Taskname delimiter must be a string';
+  const configFileErrorString = 'Config file must be a string containing the relative path to a config file';
+  const configErrorString = 'Config must be an object containing configuration options for your gulp tasks';
+  const pluginsErrorString = 'Plugins must be an object containing plugins you wish to use in your gulp tasks';
 
   function validateOption(option, type, required, errorString) {
     switch(type) {

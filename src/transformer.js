@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var path = require('path');
+  const path = require('path');
 
   function removeDotSlash(relativePath) {
     if(relativePath.slice(0, 2) === '.' + path.sep) {

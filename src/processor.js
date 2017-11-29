@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  var async = require('async');
-  var path = require('path');
-  var fs = require('fs');
-  var _ = require('lodash');
+  const Async = require('async');
+  const path = require('path');
+  const fs = require('fs');
+  const _ = require('lodash');
 
   function voidFunction() {
     return;
@@ -59,7 +59,7 @@
 
           if(taskparams.length > 0) {
             gulp.task(obj.taskname, taskdeps, function() {
-              async.map(taskparams, function(params, callback) {
+              Async.map(taskparams, function(params, callback) {
                 taskfn(params, callback);
               });
             });

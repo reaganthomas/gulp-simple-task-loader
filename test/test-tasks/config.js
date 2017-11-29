@@ -1,9 +1,9 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	module.exports = function(gulp, config) {
-		return function() {
-			return config;
-		};
-	};
+  module.exports = function(gulp, config) {
+    return function() {
+      return config;
+    };
+  };
 })();

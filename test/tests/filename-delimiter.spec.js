@@ -1,19 +1,19 @@
 (function() {
   'use strict';
 
-  var assert = require('assert');
-  var taskLoader = '../../build/index.js';
-  var gulp;
+  const assert = require('assert');
+  const taskLoader = '../../build/index.js';
+  let gulp;
 
   // register coffeescript to handle any coffee files
   require('coffee-script/register');
 
   describe('filenameDelimiter', function() {
     beforeEach(function() {
-			delete require.cache[require.resolve(taskLoader)];
-			delete require.cache[require.resolve('gulp')];
-			gulp = require('gulp');
-		});
+      delete require.cache[require.resolve(taskLoader)];
+      delete require.cache[require.resolve('gulp')];
+      gulp = require('gulp');
+    });
 
     it('should error when filenameDelimiter is not a string', function(done) {
       assert.throws(function() {

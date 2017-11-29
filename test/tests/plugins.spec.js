@@ -1,19 +1,19 @@
 (function() {
   'use strict';
 
-  var assert = require('assert');
-  var taskLoader = '../../build/index.js';
-  var gulp;
+  const assert = require('assert');
+  const taskLoader = '../../build/index.js';
+  let gulp;
 
   // register coffeescript to handle any coffee files
   require('coffee-script/register');
 
   describe('plugins', function() {
     beforeEach(function() {
-			delete require.cache[require.resolve(taskLoader)];
-			delete require.cache[require.resolve('gulp')];
-			gulp = require('gulp');
-		});
+      delete require.cache[require.resolve(taskLoader)];
+      delete require.cache[require.resolve('gulp')];
+      gulp = require('gulp');
+    });
 
     it('should error when plugins is not an object', function(done) {
       assert.throws(function() {
@@ -36,7 +36,7 @@
         configFile: 'config-file.js'
       });
 
-      var plugins = gulp.tasks.plugins.fn();
+      const plugins = gulp.tasks.plugins.fn();
       assert.equal(plugins.herp, 'derp');
       done();
     });

@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  var fs = require('fs');
-  var path = require('path');
+  const fs = require('fs');
+  const path = require('path');
 
   function specFile(filename) {
     return filename.indexOf('spec.js') !== -1;
